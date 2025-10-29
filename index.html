@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ayan Jawaid — Portfolio</title>
+  <meta name="description"
+    content="Portfolio of Ayan Jawaid — Data Analyst & ML enthusiast skilled in Python, SQL, Tableau, Power BI, and Streamlit." />
+  <style>
+    :root {
+      --accent: #0ea5a4;
+      --bg: #071028;
+      --card: #0b1220;
+      --muted: #94a3b8;
+      --glass: rgba(255, 255, 255, 0.04);
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, system-ui, Segoe UI, Roboto, Arial;
+      background: linear-gradient(180deg, #030617 0%, #071028 100%);
+      color: #e6eef8;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* HEADER */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: linear-gradient(180deg, rgba(2, 6, 23, 0.9), rgba(2, 6, 23, 0.6));
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      gap: 12px;
+    }
+
+    .brand {
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    /* NAVIGATION */
+    .nav-links {
+      display: flex;
+      gap: 10px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      padding: 8px 10px;
+      border-radius: 8px;
+    }
+
+    .nav-links a:hover {
+      background: var(--glass);
+      color: var(--accent);
+    }
+
+    .hamburger {
+      display: none;
+      background: transparent;
+      border: none;
+      font-size: 1.4rem;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .mobile-menu {
+      display: none;
+      background: rgba(2, 6, 23, 0.97);
+      padding: 8px 16px;
+    }
+
+    .mobile-menu a {
+      display: block;
+      padding: 10px;
+      color: var(--muted);
+      text-decoration: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .mobile-menu a:hover {
+      color: var(--accent);
+    }
+
+    .mobile-menu.open {
+      display: block;
+    }
+
+    /* GENERAL LAYOUT */
+    .container {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .hero-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent);
+      padding: 22px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .profile-pic {
+      width: 100%;
+      border-radius: 12px;
+      border: 4px solid rgba(255, 255, 255, 0.05);
+      object-fit: cover;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin: 20px 0 14px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+    .grid,
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--card);
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(48, 203, 255, 0.626);
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    /* PROJECTS */
+    .project-img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      padding: 6px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--muted);
+      border: 1px solid rgba(9, 3, 3, 0.341);
+      background-color: rgba(255, 255, 255, 0.129);
+    }
+
+    /* SKILLS */
+    .skill {
+      margin-bottom: 10px;
+    }
+
+    .label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .bar {
+      height: 12px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .bar>i {
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), #7dd3fc);
+      width: 0%;
+      border-radius: 8px;
+    }
+
+    /* CHIPS */
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* CONTACT */
+    .links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .btn:hover {
+      background: var(--glass);
+      color: var(--accent);
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      margin: 40px 0 60px;
+      font-size: 0.9rem;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hamburger {
+        display: inline-block;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .profile-pic {
+        max-width: 300px;
+        margin: 0 auto;
+        display: block;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav">
+      <div class="brand">Ayan Jawaid</div>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#certificates">Certificates</a>
+        <a href="#education">Education</a>
+        <a href="#capabilities">What I can do</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="hamburger" id="hambBtn">☰</button>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#certificates">Certificates</a>
+      <a href="#education">Education</a>
+      <a href="#capabilities">What I can do</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- ABOUT -->
+    <section id="about" class="hero">
+      <div class="hero-card">
+        <h1>Ayan Jawaid</h1>
+        <p class="meta">Detail-oriented Data & AI Enthusiast skilled in Python, SQL, and data visualization, with
+          hands-on experience in automation, analytics, and
+          machine learning workflows. Proficient in deploying ML models using Flask, Streamlit, and Docker, and
+          passionate about MLOps practices
+          such as containerization and CI/CD integration. Adept at troubleshooting, data handling, and building
+          efficient analytical solutions in fast
+          paced environments. </p>
+        <div style="margin-top:14px;">
+          <a class="btn" href="https://github.com/Ayaanjawaid" target="_blank">GitHub</a>
+          <a class="btn" href="https://linkedin.com/in/ayanjawaid" target="_blank">LinkedIn</a>
+          <a class="btn" href="https://public.tableau.com/app/profile/ayan.jawaid/vizzes" target="_blank">Tableau</a>
+        </div>
+      </div>
+      <img class="profile-pic" src="AYAAN.jpg" alt="Profile Photo">
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="section-title">
+        <h2>Experience</h2>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h3>Data Science Intern — Feynn Labs</h3>
+          <p class="meta">Jul 2024 – Sep 2024 (Remote)</p>
+          <ul>
+            <li>Built dashboards in Tableau and Excel for client analytics.</li>
+            <li>Implemented RFM modeling and customer segmentation.</li>
+            <li>Cleaned & analyzed 50k+ data records to support insights.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Python Developer Intern — Techplement</h3>
+          <p class="meta">Jun 2024 – Jul 2024 (Remote)</p>
+          <ul>
+            <li>Automated Excel reports using Python (OpenPyXL).</li>
+            <li>Integrated APIs for real-time data fetching.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="section-title">
+        <h2>Projects</h2>
+        <select id="filter" onchange="filterProjects()">
+          <option value="all">All</option>
+          <option value="data">Data Analysis</option>
+          <option value="python">Python</option>
+          <option value="ml">Machine Learning</option>
+          <option value="excel">Excel</option>
+        </select>
+      </div>
+
+      <div class="project-grid" id="projects-grid">
+
+        <!-- 🧩 Data Analysis Project -->
+        <div class="card project" data-type="data">
+          <img class="project-img" src="images\PS DA.jpg" alt="PLAYSTORE">
+          <h3>Google Play Store Data Analysis</h3>
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">Power BI</span>
+            <span class="tag">EDA</span>
+          </div>
+          <p class="meta">Analyzed 10k+ app reviews, visualized KPIs, and automated ETL workflow for category insights.
+          </p>
+          <div class="links">
+            <a class="btn" href="https://github.com/Ayaanjawaid/Google_Playstore_Data_Analysis"
+              target="_blank">GitHub</a>
+          </div>
+        </div>
+
+        <!-- 🧠 Machine Learning Project -->
+        <div class="card project" data-type="ml">
+          <img class="project-img" src="images\CARS24.jpg" alt="CARS24">
+          <h3>Cars24 Price Prediction App</h3>
+          <div class="project-tags">
+            <span class="tag">Streamlit</span>
+            <span class="tag">scikit-learn</span>
+            <span class="tag">Regression</span>
+          </div>
+          <p class="meta">Predicts used car resale price using ML regression model, with interactive Streamlit UI.</p>
+          <div class="links">
+            <a class="btn" href="https://github.com/Ayaanjawaid/CARS_24_PRICE_PREDICTION_APP" target="_blank">GitHub</a>
+            <a class="btn" href="https://cars24-price-prediction-app.streamlit.app/" target="_blank">Live App</a>
+          </div>
+        </div>
+
+
+        <div class="card project" data-type="ml">
+          <img class="project-img" src="images\BSP.jpg" alt="BSP">
+          <h3>Brain Stroke Prediction</h3>
+          <div class="project-tags">
+            <span class="tag">Excel</span>
+            <span class="tag">Python</span>
+            <span class="tag">Machine Learning</span>
+            <span class="tag">Visualization</span>
+          </div>
+          <p class="meta">This project aims to predict the likelihood of a stroke based on various health parameters
+            using machine learning models.</p>
+          <div class="links">
+            <a class="btn" href="https://github.com/Ayaanjawaid/Brain_Stroke_Prediction" target="_blank">GitHub</a>
+            <!-- omit Live App if not deployed -->
+          </div>
+        </div>
+
+        <div class="card project" data-type="excel">
+          <img class="project-img" src="images\R.F.M.jpg" alt="RFM Project">
+          <h3>RFM-Based-Customer-Profiling</h3>
+          <div class="project-tags">
+            <span class="tag">Excel</span>
+            <span class="tag">Pivot-Table</span>
+            <span class="tag">Data-Analysis</span>
+          </div>
+          <p class="meta">This project demonstrates how to apply RFM (Recency, Frequency, Monetary) analysis for
+            customer segmentation using order transaction data......</p>
+          <div class="links">
+            <a class="btn" href="https://github.com/Ayaanjawaid/RFM-Based-Customer-Profiling-"
+              target="_blank">GitHub</a>
+          </div>
+        </div>
+
+        <div class="card project" data-type="python">
+          <img class="project-img" src="images\ATS.jpg" alt="ATS Project">
+          <h3>Application Tracking System</h3>
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">Flask</span>
+            <span class="tag">ATS</span>
+          </div>
+          <p class="meta">This is a web-based Applicant Tracking
+            System (ATS) built using Flask that allows you to upload resumes and job descriptions, analyze them for
+            keyword matching.....</p>
+          <div class="links">
+            <a class="btn" href="https://github.com/Ayaanjawaid/Application_Tracking_System_Flask"
+              target="_blank">GitHub</a>
+          </div>
+        </div>
+
+        <div class="card project" data-type="python">
+          <img class="project-img" src="images\text con.jpg" alt="text contrast Project">
+          <h3>TEXT CONTRAST</h3>
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">Steamlit</span>
+            <span class="tag">Text</span>
+          </div>
+          <p class="meta">
+            TextContrast Takes two texts as input in the text area and then compares the two text, the difference is
+            highlighted.</p>
+          <div class="links">
+            <a class="btn" href="https://github.com/Ayaanjawaid/TextContrast" target="_blank">GitHub</a>
+            <a class="btn" href="https://textcontrast-hkces66de9tv3dvzjradge.streamlit.app/" target="_blank">Live
+              App</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="section-title">
+        <h2>Skills</h2>
+      </div>
+      <div class="card">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div>
+            <div class="skill">
+              <div class="label"><span>Python</span><span>80%</span></div>
+              <div class="bar"><i style="width:80%"></i></div>
+            </div>
+            <div class="skill">
+              <div class="label"><span>Flask</span><span>60%</span></div>
+              <div class="bar"><i style="width:60%"></i></div>
+            </div>
+            <div class="skill">
+              <div class="label"><span>Streamlit</span><span>55%</span></div>
+              <div class="bar"><i style="width:55%"></i></div>
+            </div>
+            <div class="skill">
+              <div class="label"><span>SQL</span><span>75%</span></div>
+              <div class="bar"><i style="width:75%"></i></div>
+            </div>
+            <div class="skill">
+              <div class="label"><span>Tableau</span><span>75%</span></div>
+              <div class="bar"><i style="width:75%"></i></div>
+            </div>
+            <div class="skill">
+              <div class="label"><span>Power BI</span><span>60%</span></div>
+              <div class="bar"><i style="width:60%"></i></div>
+            </div>
+          </div>
+          <div>
+            <div class="skill">
+              <div class="label"><span>Excel</span><span>82%</span></div>
+              <div class="bar"><i style="width:82%"></i></div>
+            </div>
+            <div class="skill">
+              <div class="label"><span>Machine Learning</span><span>70%</span></div>
+              <div class="bar"><i style="width:70%"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CERTIFICATES -->
+    <section id="certificates">
+      <div class="section-title">
+        <h2>Certificates</h2>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h3>Scaler — Data Science & ML (2025)</h3>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+      <div class="section-title">
+        <h2>Education</h2>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h3>MCA — Asansol Engineering College</h3>
+          <p class="meta">CGPA: 8.93 (2023)</p>
+        </div>
+        <div class="card">
+          <h3>BCA — Asansol Engineering College</h3>
+          <p class="meta">CGPA: 8.59 (2021)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAPABILITIES -->
+    <section id="capabilities">
+      <div class="section-title">
+        <h2>What I can do</h2>
+      </div>
+      <div class="card">
+        <div class="chips">
+          <div class="chip">Dashboarding</div>
+          <div class="chip">ETL Pipelines</div>
+          <div class="chip">RFM Segmentation</div>
+          <div class="chip">Automation (Excel + Python)</div>
+          <div class="chip">Model Deployment</div>
+          <div class="chip">Front-End Development</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="section-title">
+        <h2>Contact</h2>
+      </div>
+      <div class="card">
+        <p>Email: <strong>ayanjawaid.mca2023@gmail.com</strong></p>
+        <div class="links">
+          <a class="btn" href="https://github.com/Ayaanjawaid">GitHub</a>
+          <a class="btn" href="https://linkedin.com/in/ayanjawaid">LinkedIn</a>
+          <a class="btn" href="https://public.tableau.com/app/profile/ayan.jawaid/vizzes">Tableau</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>Built with ❤️ by Ayan Jawaid </footer>
+  </main>
+
+  <script>
+    // Hamburger Toggle
+    const hambBtn = document.getElementById('hambBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hambBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+    });
+
+    // Project Filter
+    function filterProjects() {
+      const f = document.getElementById('filter').value;
+      document.querySelectorAll('.project').forEach(p => {
+        p.style.display = f === 'all' || p.dataset.type === f ? 'block' : 'none';
+      });
+    }
+
+    // Animate Skill Bars
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.bar > i').forEach(i => {
+        const w = i.style.width;
+        i.style.width = '0%';
+        setTimeout(() => (i.style.width = w), 150);
+      });
+    });
+  </script>
+</body>
+
+</html>
