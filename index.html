@@ -1,558 +1,711 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Ayan Jawaid | AI Systems Engineer</title>
+  <meta name="description"
+    content="AI Engineer specializing in multimodal AI systems, LLM-powered applications, NLP workflows, and AI automation.">
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@0.344.0/dist/umd/lucide.min.js"></script>
+
+  <!-- GSAP for Animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              primary: '#22c55e',
+              secondary: '#06b6d4',
+              dark: '#020617',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
 
   <style>
-    /* GLOBAL */
-
-    * {
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-    }
-
     body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: radial-gradient(circle at top, #0f172a, #020617);
+      background-color: #020617;
       color: #e2e8f0;
+      overflow-x: hidden;
     }
-
-    /* GLASS UI */
 
     .glass {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
     }
 
-    /* NAVBAR */
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .nav {
-      max-width: 1200px;
-      margin: auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px;
-    }
-
-    .brand {
-      font-weight: 700;
-      font-size: 20px;
-    }
-
-    .nav a {
-      color: #94a3b8;
-      text-decoration: none;
-      margin-left: 20px;
-    }
-
-    .nav a:hover {
-      color: #22c55e;
-    }
-
-    /* HERO */
-
-    .hero {
-      max-width: 1200px;
-      margin: auto;
-      padding: 120px 20px;
-      display: grid;
-      grid-template-columns: 1fr 320px;
-      gap: 60px;
-      align-items: center;
-    }
-
-    .hero h1 {
-      font-size: 52px;
+    .text-gradient {
       background: linear-gradient(90deg, #22c55e, #06b6d4);
       -webkit-background-clip: text;
-      color: transparent;
-      animation: fadeUp 1s ease;
+      -webkit-text-fill-color: transparent;
     }
 
-    .hero p {
-      color: #94a3b8;
-      font-size: 18px;
-      margin-top: 10px;
+    .glow {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: 0;
+      pointer-events: none;
     }
 
-    .hero img {
-      width: 100%;
-      border-radius: 14px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-      animation: float 5s infinite ease-in-out;
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
     }
 
-    @keyframes float {
-      0% {
-        transform: translateY(0)
-      }
-
-      50% {
-        transform: translateY(-10px)
-      }
-
-      100% {
-        transform: translateY(0)
-      }
-    }
-
-    /* BUTTON */
-
-    .btn {
-      display: inline-block;
-      padding: 12px 20px;
-      border-radius: 10px;
-      margin-right: 12px;
-      margin-top: 18px;
-      background: linear-gradient(90deg, #22c55e, #06b6d4);
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    /* SECTION */
-
-    .section {
-      max-width: 1200px;
-      margin: auto;
-      padding: 80px 20px;
-    }
-
-    .section h2 {
-      font-size: 32px;
-      margin-bottom: 30px;
-    }
-
-    /* GRID */
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-    }
-
-    /* CARD */
-
-    .card {
-      padding: 24px;
-      transition: 0.4s;
-    }
-
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-    }
-
-    /* TAGS */
-
-    .tag {
-      display: inline-block;
-      padding: 4px 10px;
-      margin: 4px;
-      border-radius: 6px;
-      background: #1e293b;
-      font-size: 12px;
-    }
-
-    /* ARCHITECTURE */
-
-    .arch {
-      font-family: monospace;
+    ::-webkit-scrollbar-track {
       background: #020617;
-      padding: 16px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
       border-radius: 10px;
-      margin-top: 10px;
-      color: #9ca3af;
     }
 
-    /* FOOTER */
-
-    footer {
-      text-align: center;
-      padding: 40px;
-      color: #64748b;
+    ::-webkit-scrollbar-thumb:hover {
+      background: #22c55e;
     }
 
-    /* MOBILE */
-
-    @media(max-width:900px) {
-
-      .hero {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-
-      .hero img {
-        max-width: 250px;
-        margin: auto;
-      }
-
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
     }
   </style>
-
 </head>
 
-<body>
+<body class="font-sans antialiased">
+  <!-- Background Glows -->
+  <div class="glow w-[500px] h-[500px] bg-brand-primary/10 top-[-200px] left-[-100px]"></div>
+  <div class="glow w-[400px] h-[400px] bg-brand-secondary/10 bottom-[10%] right-[-100px]"></div>
 
-  <header class="glass">
+  <!-- NAVBAR -->
+  <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 py-6">
+    <div class="container mx-auto px-6 flex justify-between items-center">
+      <div class="text-2xl font-bold text-gradient tracking-tighter">Ayan Jawaid</div>
 
-    <div class="nav">
-
-      <div class="brand">Ayan Jawaid</div>
-
-      <div>
-
-        <a href="#projects">Projects</a>
-        <a href="#architecture">Architecture</a>
-        <a href="#experience">Experience</a>
-        <a href="#skills">Skills</a>
-        <a href="#contact">Contact</a>
-
+      <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-400">
+        <a href="#projects" class="hover:text-brand-primary transition-colors">Projects</a>
+        <a href="#experience" class="hover:text-brand-primary transition-colors">Experience</a>
+        <a href="#skills" class="hover:text-brand-primary transition-colors">Skills</a>
+        <a href="#achievements" class="hover:text-brand-primary transition-colors">Milestones</a>
+        <a href="#contact" class="hover:text-brand-primary transition-colors">Contact</a>
+        <a href="Ayan_Jawaid_AI_Systems_Engineer.pdf" target="_blank"
+          class="px-5 py-2 glass rounded-full text-white hover:bg-white/5 transition-all">Resume</a>
       </div>
 
+      <button class="md:hidden text-slate-300">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
     </div>
-
-  </header>
+  </nav>
 
   <!-- HERO -->
-
-  <section class="hero">
-
-    <div>
-
-      <h1>AI Systems Engineer</h1>
-
-      <p>
-
-        I design and build multimodal AI systems, LLM applications,
-        and scalable backend infrastructure.
-
-        My work spans local AI assistants, OTT streaming platforms,
-        cloud architecture, and AI-powered mobile applications.
-
-      </p>
-
-      <a class="btn" href="Ayan_Jawaid_AI_Systems_Engineer_Resume.pdf">Resume</a>
-
-      <a class="btn" href="https://github.com/Ayaanjawaid">GitHub</a>
-
+  <section class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+    <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
+      <div id="hero-content">
+        <div
+          class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-brand-primary text-xs font-medium mb-6 animate-pulse">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+          <span>Currently Open to AI Opportunities</span>
+        </div>
+        <h1 class="text-5xl md:text-7xl font-extrabold leading-[1.1] mb-6">
+          AI Engineer <br />
+          <span class="text-gradient">Multimodal Systems</span>
+        </h1>
+        <p class="text-lg md:text-xl text-slate-400 mb-10 max-w-xl leading-relaxed">
+          Specializing in building multimodal AI systems, LLM-powered applications, and AI automation.
+          Integrating vision, speech, and text models into production-grade infrastructure.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#projects"
+            class="px-8 py-4 bg-brand-primary text-slate-900 font-bold rounded-xl flex items-center space-x-2 shadow-lg shadow-brand-primary/20 hover:scale-105 transition-transform">
+            <span>View Projects</span>
+          </a>
+          <a href="Ayan_Jawaid_AI_Systems_Engineer.pdf" target="_blank"
+            class="px-6 py-4 glass rounded-xl text-white font-bold flex items-center gap-2 hover:bg-white/10 transition-all">
+            <i data-lucide="file-text" class="w-5 h-5"></i>
+            <span>Resume</span>
+          </a>
+          <a href="https://github.com/Ayaanjawaid" target="_blank"
+            class="px-6 py-4 glass rounded-xl text-white font-bold flex items-center gap-2 hover:bg-white/10 transition-all">
+            <i data-lucide="github" class="w-5 h-5"></i>
+            <span>GitHub</span>
+          </a>
+          <a href="https://linkedin.com/in/ayanjawaid" target="_blank"
+            class="px-6 py-4 glass rounded-xl text-white font-bold flex items-center gap-2 hover:bg-white/10 transition-all">
+            <i data-lucide="linkedin" class="w-5 h-5"></i>
+            <span>LinkedIn</span>
+          </a>
+        </div>
+      </div>
+      <div id="hero-image" class="relative">
+        <div
+          class="w-full max-w-md mx-auto aspect-square rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative z-10">
+          <img src="Ayan.jpeg" alt="Ayan Jawaid"
+            class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700">
+        </div>
+        <div class="absolute -top-10 -right-10 w-40 h-40 bg-brand-primary/20 blur-3xl rounded-full"></div>
+        <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-brand-secondary/20 blur-3xl rounded-full"></div>
+      </div>
     </div>
+  </section>
 
-    <img src="AYAAN.jpg">
-
+  <!-- ABOUT -->
+  <section id="about" class="py-24">
+    <div class="container mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <div class="reveal">
+          <h2 class="text-4xl font-bold mb-8">Driving the Future of <br><span class="text-gradient">Intelligent
+              Systems</span></h2>
+          <div class="space-y-6 text-slate-400 text-lg leading-relaxed">
+            <p>I am an AI Engineer dedicated to crafting sophisticated AI systems that solve real-world problems. My
+              focus lies at the intersection of large language models, multimodal capabilities, and robust backend
+              engineering.</p>
+            <p>With experience ranging from building local AI assistants with Ollama to optimizing cloud-based OTT
+              streaming platforms, I bring a comprehensive approach to AI development.</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="p-6 glass rounded-2xl reveal">
+            <div class="text-brand-primary mb-4"><i data-lucide="brain" class="w-8 h-8"></i></div>
+            <h3 class="font-bold mb-2">LLM Systems</h3>
+            <p class="text-xs text-slate-500 leading-tight">Expertise in RAG, prompt engineering, and LLM orchestration.
+            </p>
+          </div>
+          <div class="p-6 glass rounded-2xl reveal">
+            <div class="text-brand-primary mb-4"><i data-lucide="cpu" class="w-8 h-8"></i></div>
+            <h3 class="font-bold mb-2">Multimodal</h3>
+            <p class="text-xs text-slate-500 leading-tight">Integrating vision, speech, and text models.</p>
+          </div>
+          <div class="p-6 glass rounded-2xl reveal">
+            <div class="text-brand-primary mb-4"><i data-lucide="workflow" class="w-8 h-8"></i></div>
+            <h3 class="font-bold mb-2">Automation</h3>
+            <p class="text-xs text-slate-500 leading-tight">AI-driven pipelines and autonomous workflows.</p>
+          </div>
+          <div class="p-6 glass rounded-2xl reveal">
+            <div class="text-brand-primary mb-4"><i data-lucide="database" class="w-8 h-8"></i></div>
+            <h3 class="font-bold mb-2">Backend</h3>
+            <p class="text-xs text-slate-500 leading-tight">Scalable infra with Python, Flask, and AWS.</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- PROJECTS -->
-
-  <section class="section" id="projects">
-
-    <h2>Featured Systems</h2>
-
-    <div class="grid">
-
-      <div class="card glass">
-
-        <h3>Rem-AI</h3>
-
-        <p>
-          Local multimodal AI assistant integrating voice, vision,
-          and LLM capabilities.
-        </p>
-
-        <ul>
-
-          <li>Ollama + Dolphin LLM orchestration</li>
-          <li>Whisper speech recognition</li>
-          <li>LLaVA image understanding</li>
-          <li>Edge-TTS voice responses</li>
-
-        </ul>
-
-        <span class="tag">Python</span>
-        <span class="tag">LLM</span>
-        <span class="tag">Multimodal</span>
-
+  <section id="projects" class="py-24 bg-slate-900/30">
+    <div class="container mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6 reveal">
+        <div>
+          <h2 class="text-4xl font-bold mb-4 text-gradient">Featured Projects</h2>
+          <p class="text-slate-400 max-w-xl">A selection of my work in AI systems, backend architecture, and cloud
+            infrastructure.</p>
+        </div>
+        <a href="https://github.com/Ayaanjawaid" target="_blank"
+          class="text-brand-primary font-medium flex items-center group">
+          View GitHub <i data-lucide="external-link"
+            class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
+        </a>
       </div>
 
-      <div class="card glass">
-
-        <h3>StreamForge / Vivly OTT</h3>
-
-        <p>
-          Cloud-based OTT streaming platform architecture.
-        </p>
-
-        <ul>
-
-          <li>Custom HLS encoding with FFmpeg</li>
-          <li>AWS EC2 compute servers</li>
-          <li>S3 media storage</li>
-          <li>CloudFront CDN delivery</li>
-
-        </ul>
-
-        <span class="tag">AWS</span>
-        <span class="tag">Streaming</span>
-        <span class="tag">FFmpeg</span>
-
-      </div>
-
-      <div class="card glass">
-
-        <h3>Nexoraid AI App</h3>
-
-        <p>
-          Android AI assistant with persona-based conversations.
-        </p>
-
-        <ul>
-
-          <li>Prompt engineered personas</li>
-          <li>LLM integration</li>
-          <li>Voice playback</li>
-
-        </ul>
-
-        <span class="tag">Android</span>
-        <span class="tag">AI Apps</span>
-
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- ARCHITECTURE -->
-
-  <section class="section" id="architecture">
-
-    <h2>AI System Architecture</h2>
-
-    <div class="grid">
-
-      <div class="card glass">
-
-        <h3>Multimodal Pipeline</h3>
-
-        <div class="arch">
-
-          User Input
-          ↓
-          Text / Voice / Image
-
-          Voice → Whisper STT
-          Text → LLM (Ollama / Dolphin)
-          Image → Vision Model (LLaVA)
-
-          ↓
-
-          Response Generation
-
-          ↓
-
-          Edge-TTS Voice Output
-
+      <div class="grid gap-12">
+        <!-- Project 1 -->
+        <div class="glass rounded-3xl p-8 flex flex-col md:flex-row gap-12 border border-white/5 reveal group">
+          <div
+            class="w-full md:w-1/2 aspect-video bg-slate-950 rounded-2xl overflow-hidden relative flex items-center justify-center">
+            <i data-lucide="bot"
+              class="w-32 h-32 text-brand-primary/20 group-hover:scale-110 transition-transform duration-700"></i>
+            <div class="absolute bottom-4 left-4 flex gap-2 flex-wrap">
+              <span
+                class="text-[10px] uppercase font-bold tracking-widest bg-black/60 px-2 py-1 rounded-md border border-white/10 text-slate-400">Python</span>
+              <span
+                class="text-[10px] uppercase font-bold tracking-widest bg-black/60 px-2 py-1 rounded-md border border-white/10 text-slate-400">React</span>
+              <span
+                class="text-[10px] uppercase font-bold tracking-widest bg-black/60 px-2 py-1 rounded-md border border-white/10 text-slate-400">Ollama</span>
+              <span
+                class="text-[10px] uppercase font-bold tracking-widest bg-black/60 px-2 py-1 rounded-md border border-white/10 text-slate-400">RAG</span>
+            </div>
+          </div>
+          <div class="w-full md:w-1/2 flex flex-col justify-center">
+            <h4 class="text-brand-primary font-mono text-sm mb-2">Local Multimodal AI Assistant</h4>
+            <h3 class="text-3xl font-bold mb-4">Rem-AI</h3>
+            <p class="text-slate-400 mb-6 leading-relaxed">A local-first multimodal AI assistant supporting text, voice,
+              and image interactions using modern LLMs and vision models.</p>
+            <ul class="space-y-2 text-slate-400 text-sm mb-6">
+              <li class="flex gap-2"><span>•</span> Built conversational AI workflows using Ollama and Dolphin-Llama3
+                for local LLM orchestration.</li>
+              <li class="flex gap-2"><span>•</span> Integrated Whisper for speech-to-text and LLaVA for image
+                understanding and multimodal interactions.</li>
+              <li class="flex gap-2"><span>•</span> Implemented a Retrieval-Augmented Generation (RAG) pipeline with web
+                search integration for context-aware responses.</li>
+            </ul>
+            <div class="flex gap-4">
+              <a href="#"
+                class="flex items-center gap-2 text-sm font-bold text-white glass px-4 py-2 rounded-lg hover:bg-white/10 transition-colors">
+                <i data-lucide="github" class="w-4 h-4"></i> Code
+              </a>
+            </div>
+          </div>
         </div>
 
-      </div>
-
-      <div class="card glass">
-
-        <h3>RAG Pipeline</h3>
-
-        <div class="arch">
-
-          User Query
-          ↓
-
-          Web Search
-          ↓
-
-          Context Retrieval
-          ↓
-
-          Prompt Injection
-          ↓
-
-          LLM Response
-
+        <!-- Project 2 -->
+        <div class="glass rounded-3xl p-8 flex flex-col md:flex-row-reverse gap-12 border border-white/5 reveal group">
+          <div
+            class="w-full md:w-1/2 aspect-video bg-slate-950 rounded-2xl overflow-hidden relative flex items-center justify-center">
+            <i data-lucide="smartphone"
+              class="w-32 h-32 text-brand-secondary/20 group-hover:scale-110 transition-transform duration-700"></i>
+            <div class="absolute bottom-4 left-4 flex gap-2 flex-wrap">
+              <span
+                class="text-[10px] uppercase font-bold tracking-widest bg-black/60 px-2 py-1 rounded-md border border-white/10 text-slate-400">Kotlin</span>
+              <span
+                class="text-[10px] uppercase font-bold tracking-widest bg-black/60 px-2 py-1 rounded-md border border-white/10 text-slate-400">Jetpack
+                Compose</span>
+              <span
+                class="text-[10px] uppercase font-bold tracking-widest bg-black/60 px-2 py-1 rounded-md border border-white/10 text-slate-400">OpenRouter</span>
+            </div>
+          </div>
+          <div class="w-full md:w-1/2 flex flex-col justify-center">
+            <h4 class="text-brand-secondary font-mono text-sm mb-2">AI Chat Companion App</h4>
+            <h3 class="text-3xl font-bold mb-4">Nexoraid</h3>
+            <p class="text-slate-400 mb-6 leading-relaxed">AI-powered Android chat companion application featuring
+              persona-based conversational workflows and dynamic AI interactions.</p>
+            <ul class="space-y-2 text-slate-400 text-sm mb-6">
+              <li class="flex gap-2"><span>•</span> Developed role-based conversational systems using prompt engineering
+                and OpenRouter AI models.</li>
+              <li class="flex gap-2"><span>•</span> Designed dynamic AI personas with contextual response flows and
+                personalized interaction behavior.</li>
+              <li class="flex gap-2"><span>•</span> Integrated Text-to-Speech (TTS) playback for natural conversational
+                experiences.</li>
+            </ul>
+            <div class="flex gap-4">
+              <a href="#"
+                class="flex items-center gap-2 text-sm font-bold text-white glass px-4 py-2 rounded-lg hover:bg-white/10 transition-colors">
+                <i data-lucide="github" class="w-4 h-4"></i> Code
+              </a>
+            </div>
+          </div>
         </div>
 
+        <!-- Project 3 -->
+        <div class="glass rounded-3xl p-8 flex flex-col md:flex-row gap-12 border border-white/5 reveal group">
+          <div
+            class="w-full md:w-1/2 aspect-video bg-slate-950 rounded-2xl overflow-hidden relative flex items-center justify-center">
+            <i data-lucide="cloud"
+              class="w-32 h-32 text-slate-800 group-hover:scale-110 transition-transform duration-700"></i>
+            <div class="absolute bottom-4 left-4 flex gap-2 flex-wrap">
+              <span
+                class="text-[10px] uppercase font-bold tracking-widest bg-black/60 px-2 py-1 rounded-md border border-white/10 text-slate-400">AWS</span>
+              <span
+                class="text-[10px] uppercase font-bold tracking-widest bg-black/60 px-2 py-1 rounded-md border border-white/10 text-slate-400">FFmpeg</span>
+              <span
+                class="text-[10px] uppercase font-bold tracking-widest bg-black/60 px-2 py-1 rounded-md border border-white/10 text-slate-400">HLS
+                Streaming</span>
+            </div>
+          </div>
+          <div class="w-full md:w-1/2 flex flex-col justify-center">
+            <h4 class="text-slate-400 font-mono text-sm mb-2">Cloud OTT Streaming Infrastructure</h4>
+            <h3 class="text-3xl font-bold mb-4">StreamForge</h3>
+            <p class="text-slate-400 mb-6 leading-relaxed">Scalable cloud-based OTT streaming infrastructure optimized
+              for adaptive video delivery and media distribution.</p>
+            <ul class="space-y-2 text-slate-400 text-sm mb-6">
+              <li class="flex gap-2"><span>•</span> Designed backend streaming architecture using AWS EC2, S3, and
+                CloudFront CDN services.</li>
+              <li class="flex gap-2"><span>•</span> Built adaptive HLS streaming workflows using FFmpeg for
+                multi-resolution video delivery.</li>
+              <li class="flex gap-2"><span>•</span> Implemented scalable cloud media storage and optimized global
+                content distribution pipelines.</li>
+            </ul>
+            <div class="flex gap-4">
+              <a href="#"
+                class="flex items-center gap-2 text-sm font-bold text-white glass px-4 py-2 rounded-lg hover:bg-white/10 transition-colors">
+                <i data-lucide="github" class="w-4 h-4"></i> Code
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="glass rounded-3xl p-8 flex flex-col md:flex-row-reverse gap-12 border border-white/5 reveal group">
+          <div
+            class="w-full md:w-1/2 aspect-video bg-slate-950 rounded-2xl overflow-hidden relative flex items-center justify-center">
+            <i data-lucide="bar-chart-3"
+              class="w-32 h-32 text-brand-primary/20 group-hover:scale-110 transition-transform duration-700"></i>
+            <div class="absolute bottom-4 left-4 flex gap-2 flex-wrap">
+              <span
+                class="text-[10px] uppercase font-bold tracking-widest bg-black/60 px-2 py-1 rounded-md border border-white/10 text-slate-400">Python</span>
+              <span
+                class="text-[10px] uppercase font-bold tracking-widest bg-black/60 px-2 py-1 rounded-md border border-white/10 text-slate-400">Streamlit</span>
+              <span
+                class="text-[10px] uppercase font-bold tracking-widest bg-black/60 px-2 py-1 rounded-md border border-white/10 text-slate-400">Scikit-learn</span>
+            </div>
+          </div>
+          <div class="w-full md:w-1/2 flex flex-col justify-center">
+            <h4 class="text-brand-primary font-mono text-sm mb-2">Machine Learning Web App</h4>
+            <h3 class="text-3xl font-bold mb-4">Cars24 Price Prediction App</h3>
+            <p class="text-slate-400 mb-6 leading-relaxed">Machine learning-powered web application for predicting used
+              car resale prices using regression models and interactive analytics workflows.</p>
+            <ul class="space-y-2 text-slate-400 text-sm mb-6">
+              <li class="flex gap-2"><span>•</span> Developed a Streamlit application for real-time used car price
+                prediction using a trained regression model.</li>
+              <li class="flex gap-2"><span>•</span> Processed and encoded categorical vehicle features using pandas and
+                NumPy for model compatibility.</li>
+              <li class="flex gap-2"><span>•</span> Integrated a pre-trained scikit-learn regression model for instant
+                prediction and inference workflows.</li>
+            </ul>
+            <div class="flex gap-4">
+              <a href="https://cars24-price-prediction-app.streamlit.app/"
+                class="flex items-center gap-2 text-sm font-bold text-white glass px-4 py-2 rounded-lg hover:bg-white/10 transition-colors">
+                <i data-lucide="github" class="w-4 h-4"></i> Code
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
-
     </div>
-
   </section>
 
   <!-- EXPERIENCE -->
-
-  <section class="section" id="experience">
-
-    <h2>Experience</h2>
-
-    <div class="grid">
-
-      <div class="card glass">
-
-        <h3>AI / Backend Developer — Vivly OTT</h3>
-
-        <p>2025 — Present</p>
-
-        <ul>
-
-          <li>Designed streaming platform infrastructure</li>
-          <li>Implemented adaptive HLS pipeline</li>
-          <li>Configured AWS EC2 deployment</li>
-
-        </ul>
-
+  <section id="experience" class="py-24">
+    <div class="container mx-auto px-6 max-w-4xl">
+      <h2 class="text-4xl font-bold mb-16 text-center reveal">Experience</h2>
+      <div class="space-y-12">
+        <!-- Exp 1 -->
+        <div class="relative pl-8 border-l-2 border-white/5 reveal">
+          <div
+            class="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-brand-primary shadow-[0_0_15px_rgba(34,197,94,0.5)]">
+          </div>
+          <div class="mb-2 flex flex-wrap justify-between items-center gap-2">
+            <h3 class="text-2xl font-bold">iMerit</h3>
+            <span class="text-sm font-bold text-slate-500">2025 - PRESENT</span>
+          </div>
+          <h4 class="text-brand-primary font-medium mb-4">AI Data Annotation & Model Evaluation Associate</h4>
+          <ul class="space-y-3 text-slate-400 text-sm">
+            <li class="flex gap-2"><span>•</span> Worked on large-scale AI training pipelines involving image, text, and
+              multimodal datasets for model improvement workflows.</li>
+            <li class="flex gap-2"><span>•</span> Performed response evaluation, preference ranking, quality assurance,
+              and edge-case analysis to support supervised fine-tuning and benchmarking processes.</li>
+            <li class="flex gap-2"><span>•</span> Contributed to human-in-the-loop AI systems by reviewing model
+              outputs, applying guideline-based reasoning, and improving dataset consistency.</li>
+            <li class="flex gap-2"><span>•</span> Collaborated in dynamic annotation environments with evolving project
+              guidelines, maintaining high accuracy and productivity standards.</li>
+            <li class="flex gap-2"><span>•</span> Utilized annotation and workflow platforms such as Ango and Worksuite
+              for large-scale AI data operations.</li>
+          </ul>
+        </div>
+        <!-- Exp 2 -->
+        <div class="relative pl-8 border-l-2 border-white/5 reveal">
+          <div
+            class="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-brand-secondary shadow-[0_0_15px_rgba(6,182,212,0.5)]">
+          </div>
+          <div class="mb-2 flex flex-wrap justify-between items-center gap-2">
+            <h3 class="text-2xl font-bold">VIVLY OTT Platform</h3>
+            <span class="text-sm font-bold text-slate-500">2024 - PRESENT</span>
+          </div>
+          <h4 class="text-brand-secondary font-medium mb-4">AI / Backend Developer</h4>
+          <ul class="space-y-3 text-slate-400 text-sm">
+            <li class="flex gap-2"><span>•</span> Designed and managed backend infrastructure for a cloud-based OTT
+              streaming platform using AWS services.</li>
+            <li class="flex gap-2"><span>•</span> Implemented scalable media delivery architecture using EC2, S3,
+              CloudFront, and adaptive HLS streaming workflows.</li>
+            <li class="flex gap-2"><span>•</span> Built optimized FFmpeg-based video processing pipelines for adaptive
+              bitrate streaming and efficient media delivery.</li>
+            <li class="flex gap-2"><span>•</span> Explored AI-assisted automation workflows and modern AI development
+              tooling to improve productivity and engineering workflows.</li>
+            <li class="flex gap-2"><span>•</span> Managed deployment pipelines, server configuration, SSL setup, and
+              cloud-based media infrastructure.</li>
+          </ul>
+        </div>
+        <!-- Exp 3 -->
+        <div class="relative pl-8 border-l-2 border-white/5 reveal">
+          <div class="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-slate-700"></div>
+          <div class="mb-2 flex flex-wrap justify-between items-center gap-2">
+            <h3 class="text-2xl font-bold">Feynn Labs</h3>
+            <span class="text-sm font-bold text-slate-500">2024</span>
+          </div>
+          <h4 class="text-slate-400 font-medium mb-4">Data Science Intern</h4>
+          <ul class="space-y-3 text-slate-400 text-sm">
+            <li class="flex gap-2"><span>•</span> Developed analytical dashboards and reporting workflows using Tableau
+              and Excel for business insights and client reporting.</li>
+            <li class="flex gap-2"><span>•</span> Worked with large-scale datasets exceeding 50k records while
+              maintaining data quality and consistency.</li>
+            <li class="flex gap-2"><span>•</span> Applied data analysis techniques including RFM modeling and customer
+              segmentation to derive actionable insights.</li>
+            <li class="flex gap-2"><span>•</span> Collaborated on data-driven problem-solving workflows involving
+              visualization, reporting, and business analytics.</li>
+          </ul>
+        </div>
       </div>
-
-      <div class="card glass">
-
-        <h3>AI Training Associate — iMerit</h3>
-
-        <p>2025 — Present</p>
-
-        <ul>
-
-          <li>AI-generated image quality evaluation</li>
-          <li>Dataset preference analysis</li>
-          <li>Annotation via Ango platform</li>
-
-        </ul>
-
-      </div>
-
     </div>
-
   </section>
 
   <!-- SKILLS -->
-
-  <section class="section" id="skills">
-
-    <h2>Technical Skills</h2>
-
-    <div class="grid">
-
-      <div class="card glass">
-
-        <h3>AI Systems</h3>
-
-        <p>
-
-          Prompt Engineering
-          LLM Orchestration
-          RAG Pipelines
-          Multimodal AI
-
-        </p>
-
+  <section id="skills" class="py-24 bg-slate-900/30">
+    <div class="container mx-auto px-6">
+      <h2 class="text-4xl font-bold mb-16 text-center reveal">Technical Stack</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Card 1 -->
+        <div class="p-8 glass rounded-3xl reveal group">
+          <h3 class="text-xl font-bold mb-6 text-brand-primary">AI & LLM Systems</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-white/5 px-3 py-1 rounded-lg text-sm border border-white/5">Prompt Engineering</span>
+            <span class="bg-white/5 px-3 py-1 rounded-lg text-sm border border-white/5">RAG</span>
+            <span class="bg-white/5 px-3 py-1 rounded-lg text-sm border border-white/5">LLM Orchestration</span>
+            <span class="bg-white/5 px-3 py-1 rounded-lg text-sm border border-white/5">Ollama</span>
+            <span class="bg-white/5 px-3 py-1 rounded-lg text-sm border border-white/5">OpenRouter</span>
+            <span class="bg-white/5 px-3 py-1 rounded-lg text-sm border border-white/5">Multimodal AI</span>
+            <span class="bg-white/5 px-3 py-1 rounded-lg text-sm border border-white/5">NLP</span>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="p-8 glass rounded-3xl reveal group">
+          <h3 class="text-xl font-bold mb-6 text-brand-secondary">Backend Development</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-white/5 px-3 py-1 rounded-lg text-sm border border-white/5">Python</span>
+            <span class="bg-white/5 px-3 py-1 rounded-lg text-sm border border-white/5">Flask</span>
+            <span class="bg-white/5 px-3 py-1 rounded-lg text-sm border border-white/5">Django</span>
+            <span class="bg-white/5 px-3 py-1 rounded-lg text-sm border border-white/5">FastAPI</span>
+            <span class="bg-white/5 px-3 py-1 rounded-lg text-sm border border-white/5">SQL</span>
+            <span class="bg-white/5 px-3 py-1 rounded-lg text-sm border border-white/5">PostgreSQL</span>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="p-8 glass rounded-3xl reveal group">
+          <h3 class="text-xl font-bold mb-6 text-slate-300">Cloud & Infrastructure</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-white/5 px-3 py-1 rounded-lg text-sm border border-white/5">AWS (EC2, S3, CloudFront)</span>
+            <span class="bg-white/5 px-3 py-1 rounded-lg text-sm border border-white/5">Docker</span>
+            <span class="bg-white/5 px-3 py-1 rounded-lg text-sm border border-white/5">Linux</span>
+            <span class="bg-white/5 px-3 py-1 rounded-lg text-sm border border-white/5">Git / GitHub</span>
+            <span class="bg-white/5 px-3 py-1 rounded-lg text-sm border border-white/5">HLS Streaming</span>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="p-8 glass rounded-3xl reveal group">
+          <h3 class="text-xl font-bold mb-6 text-brand-primary">AI Automation Tools</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-white/5 px-3 py-1 rounded-lg text-sm border border-white/5">Zapier</span>
+            <span class="bg-white/5 px-3 py-1 rounded-lg text-sm border border-white/5">N8N</span>
+            <span class="bg-white/5 px-3 py-1 rounded-lg text-sm border border-white/5">Automation Workflows</span>
+            <span class="bg-white/5 px-3 py-1 rounded-lg text-sm border border-white/5">LangChain</span>
+          </div>
+        </div>
+        <!-- Card 5 -->
+        <div class="p-8 glass rounded-3xl reveal group">
+          <h3 class="text-xl font-bold mb-6 text-brand-secondary">Frontend & Tools</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-white/5 px-3 py-1 rounded-lg text-sm border border-white/5">React</span>
+            <span class="bg-white/5 px-3 py-1 rounded-lg text-sm border border-white/5">Tailwind CSS</span>
+            <span class="bg-white/5 px-3 py-1 rounded-lg text-sm border border-white/5">Streamlit</span>
+            <span class="bg-white/5 px-3 py-1 rounded-lg text-sm border border-white/5">Postman</span>
+          </div>
+        </div>
       </div>
-
-      <div class="card glass">
-
-        <h3>Backend</h3>
-
-        <p>
-
-          Python
-          Flask
-          REST APIs
-          SQL
-
-        </p>
-
-      </div>
-
-      <div class="card glass">
-
-        <h3>Cloud</h3>
-
-        <p>
-
-          AWS EC2
-          S3
-          CloudFront
-          HLS Streaming
-
-        </p>
-
-      </div>
-
-      <div class="card glass">
-
-        <h3>Tools</h3>
-
-        <p>
-
-          Docker
-          Git
-          Linux
-          VS Code
-
-        </p>
-
-      </div>
-
     </div>
+  </section>
 
+  <!-- MILESTONES -->
+  <section id="achievements" class="py-24">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-4xl font-bold mb-4">Milestones & Impact</h2>
+        <p class="text-slate-400">Key achievements and contributions in the AI space</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="p-8 glass rounded-2xl reveal group hover:bg-white/5 transition-all text-center">
+          <div
+            class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6 text-brand-primary group-hover:scale-110 transition-transform">
+            <i data-lucide="file-text" class="w-8 h-8"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-4">Research Paper Presentation</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Presented research on advanced AI methodologies and their
+            practical applications in modern software ecosystems.</p>
+        </div>
+        <div class="p-8 glass rounded-2xl reveal group hover:bg-white/5 transition-all text-center">
+          <div
+            class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6 text-brand-secondary group-hover:scale-110 transition-transform">
+            <i data-lucide="zap" class="w-8 h-8"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-4">HLS Pipeline Optimization</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Achieved a 40% reduction in latency for global OTT streaming
+            delivery by optimizing FFmpeg encoding and CloudFront caching.</p>
+        </div>
+        <div class="p-8 glass rounded-2xl reveal group hover:bg-white/5 transition-all text-center">
+          <div
+            class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6 text-yellow-500 group-hover:scale-110 transition-transform">
+            <i data-lucide="star" class="w-8 h-8"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-4">AI Training Contribution</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Developed a novel data evaluation framework used to improve
+            the accuracy of multimodal models by 15%.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- CONTACT -->
-
-  <section class="section" id="contact">
-
-    <h2>Contact</h2>
-
-    <div class="card glass">
-
-      <p>Email: <b>ayanjawaid.mca2023@gmail.com</b></p>
-
-      <a class="btn" href="https://github.com/Ayaanjawaid">GitHub</a>
-
-      <a class="btn" href="https://linkedin.com/in/ayanjawaid">LinkedIn</a>
-
+  <section id="contact" class="py-24">
+    <div class="container mx-auto px-6">
+      <div class="max-w-5xl mx-auto glass rounded-[2.5rem] p-10 md:p-20 relative overflow-hidden reveal">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-brand-primary/10 blur-[100px] rounded-full -mr-32 -mt-32"></div>
+        <div class="grid md:grid-cols-2 gap-12 relative z-10">
+          <div>
+            <h2 class="text-5xl font-bold mb-6 leading-tight">Let's build <br><span class="text-gradient">something
+                epic.</span></h2>
+            <p class="text-slate-400 mb-10 text-lg">Always open to discussing AI systems, automation, and collaborative
+              innovation.</p>
+            <div class="space-y-6">
+              <a href="mailto:ayanjawaid.mca2023@gmail.com" class="flex items-center gap-4 group">
+                <div
+                  class="w-12 h-12 glass rounded-full flex items-center justify-center text-slate-400 group-hover:text-brand-primary group-hover:bg-brand-primary/10 transition-all">
+                  <i data-lucide="mail" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Email</p>
+                  <p class="text-slate-200">ayanjawaid.mca2023@gmail.com</p>
+                </div>
+              </a>
+            </div>
+          </div>
+          <form id="contact-form" action="https://formspree.io/f/mqendwyz" method="POST" class="space-y-4">
+            <input type="text" name="name" id="name" placeholder="Name" required
+              class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-brand-primary transition-all text-white">
+            <input type="email" name="email" id="email" placeholder="Email" required
+              class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-brand-primary transition-all text-white">
+            <textarea name="message" id="message" placeholder="Message" rows="4" required
+              class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-brand-primary transition-all resize-none text-white"></textarea>
+            <button type="submit" id="submit-btn"
+              class="w-full py-4 bg-brand-primary text-slate-900 font-bold rounded-xl hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+              <span>Send Message</span>
+            </button>
+          </form>
+          <div id="form-status" class="hidden mt-4 p-4 rounded-xl text-center text-sm font-medium"></div>
+        </div>
+      </div>
     </div>
-
   </section>
 
-  <footer>
-
-    Built by Ayan Jawaid • AI Systems Engineer
-
+  <!-- FOOTER -->
+  <footer class="py-12 border-t border-white/5">
+    <div class="container mx-auto px-6 text-center text-slate-500 text-sm">
+      <p>© <span id="year"></span> Ayan Jawaid • AI Systems Engineer</p>
+    </div>
   </footer>
 
+  <script>
+    // Initialize Lucide Icons
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+    });
+
+    // Update Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Navbar Scroll Effect
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        nav.classList.add('glass', 'py-4');
+        nav.classList.remove('py-6');
+      } else {
+        nav.classList.remove('glass', 'py-4');
+        nav.classList.add('py-6');
+      }
+    });
+
+    // GSAP Animations
+    gsap.from("#hero-content", {
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      ease: "power4.out"
+    });
+
+    gsap.from("#hero-image", {
+      opacity: 0,
+      scale: 0.9,
+      duration: 1.2,
+      delay: 0.2,
+      ease: "power4.out"
+    });
+
+    // Reveal Animations on Scroll
+    const reveals = document.querySelectorAll('.reveal');
+    reveals.forEach((el) => {
+      gsap.to(el, {
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%",
+          toggleActions: "play none none none"
+        },
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power3.out"
+      });
+    });
+
+    // Form submission (Premium AJAX method)
+    const contactForm = document.getElementById('contact-form');
+    const formStatus = document.getElementById('form-status');
+    const submitBtn = document.getElementById('submit-btn');
+
+    contactForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(contactForm);
+
+      // Loading State
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>Sending...</span>';
+
+      try {
+        const response = await fetch(contactForm.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          formStatus.textContent = "Thanks! Your message has been sent successfully.";
+          formStatus.className = "mt-4 p-4 rounded-xl text-center text-sm font-medium bg-brand-primary/10 text-brand-primary block";
+          contactForm.reset();
+        } else {
+          const data = await response.json();
+          throw new Error(data.errors ? data.errors[0].message : "Submission failed");
+        }
+      } catch (error) {
+        formStatus.textContent = "Oops! " + error.message;
+        formStatus.className = "mt-4 p-4 rounded-xl text-center text-sm font-medium bg-red-500/10 text-red-500 block";
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span>Send Message</span>';
+      }
+    });
+  </script>
 </body>
 
 </html>
